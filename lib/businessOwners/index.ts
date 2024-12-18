@@ -1,19 +1,19 @@
 "use strict";
 
-var Promise = require("bluebird"),
-  _ = require("lodash"),
-  request = require("request"),
-  Experian = require("../experian"),
-  utils = require("../utils");
+import * as Promise from "bluebird";
+import * as _ from "lodash";
+import * as request from "request";
+import Experian from "../experian";
+import * as utils from "../utils";
 
-var experianInstance;
+let experianInstance: Experian;
 
 /**
  * BOP API Module Init
  *
  * @param {Experian} instance Experian API Main Module
  */
-function init(instance) {
+function init(instance: Experian) {
   experianInstance = instance;
 }
 
@@ -23,7 +23,7 @@ function init(instance) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reportsBop(data) {
+function reportsBop(data: object): Promise<any> {
   return bisRequest("reports/bop", data);
 }
 
@@ -33,7 +33,7 @@ function reportsBop(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reportsBopHtml(data) {
+function reportsBopHtml(data: object): Promise<any> {
   return bisRequest("reports/bop/html", data);
 }
 
@@ -43,7 +43,7 @@ function reportsBopHtml(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reportsBopPdf(data) {
+function reportsBopPdf(data: object): Promise<any> {
   return bisRequest("reports/bop/pdf", data);
 }
 
@@ -54,8 +54,8 @@ function reportsBopPdf(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function bisRequest(url, data) {
-  var accessToken = experianInstance.getApiField("auth");
+function bisRequest(url: string, data: object): Promise<any> {
+  const accessToken: string = experianInstance.getApiField("auth");
 
   if (!accessToken) {
     console.log("Access Token Missing");
@@ -64,8 +64,8 @@ function bisRequest(url, data) {
     );
   }
 
-  var basePath = experianInstance.getApiField("basePath");
-  var timeout = experianInstance.getApiField("timeout");
+  const basePath: string = experianInstance.getApiField("basePath");
+  const timeout: number = experianInstance.getApiField("timeout");
 
   return new Promise(function (resolve, reject) {
     request(
@@ -87,7 +87,7 @@ function bisRequest(url, data) {
           return reject(error);
         } else if (response.statusCode === 200) {
           //Checks to see if the 'success' boolean in the response is true
-          var success = utils.get(body, "success", false);
+          const success: boolean = utils.get(body, "success", false);
           if (success === true) {
             //Successful response
             return resolve(body);
@@ -103,11 +103,11 @@ function bisRequest(url, data) {
   });
 }
 
-module.exports = {
+export = {
   init: init,
 };
 
-module.exports.us = {
+export const us = {
   reportsBop: reportsBop,
   reportsBopHtml: reportsBopHtml,
   reportsBopPdf: reportsBopPdf,

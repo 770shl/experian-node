@@ -1,19 +1,17 @@
-'use strict';
+import { Experian } from '../experian';
+import { get } from '../utils';
+import { Request, Response } from 'request';
+import { Promise } from 'bluebird';
+import { isUndefined } from 'lodash';
 
-var Promise = require('bluebird'),
-    _ = require('lodash'),
-    request = require('request'),
-    Experian = require('../experian'),
-    utils = require('../utils');
-
-var experianInstance;
+let experianInstance: Experian;
 
 /**
  * SBCS API Module Init
  *
  * @param {Experian} instance Experian API Main Module
  */
-function init(instance) {
+function init(instance: Experian): void {
     experianInstance = instance;
 }
 
@@ -23,7 +21,7 @@ function init(instance) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function creditReports(data) {
+function creditReports(data: object): Promise<any> {
     return bisRequest('creditreports', data);
 }
 
@@ -34,16 +32,16 @@ function creditReports(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function bisRequest(url, data) {
-    var accessToken = experianInstance.getApiField('auth');
+function bisRequest(url: string, data: object): Promise<any> {
+    const accessToken: string | null = experianInstance.getApiField('auth');
 
     if (!accessToken) {
         console.log("Access Token Missing");
         throw new Error('User not authenticated - use the "login" method before calling an API');
     }
 
-    var basePath = experianInstance.getApiField('basePath');
-    var timeout = experianInstance.getApiField('timeout');
+    const basePath: string = experianInstance.getApiField('basePath');
+    const timeout: number = experianInstance.getApiField('timeout');
 
     return new Promise(function(resolve, reject) {
 
@@ -59,14 +57,14 @@ function bisRequest(url, data) {
                 'Authorization': 'Bearer ' + accessToken
             },
             body: data
-        }, function(error, response, body) {
+        }, function(error: any, response: Response, body: any) {
 
             if (error) {
                 return reject(error);
             } else if (response.statusCode === 200) {
                 //Checks to see if the 'success' boolean in the response is true
-                var creditProfile = utils.get(body, 'creditProfile', null);
-                if (typeof(creditProfile) != 'undefined' && creditProfile != null) {
+                const creditProfile: any = get(body, 'creditProfile', null);
+                if (!isUndefined(creditProfile) && creditProfile !== null) {
                     //Successful response
                     return resolve(body);
                 } else {
@@ -80,10 +78,7 @@ function bisRequest(url, data) {
     });
 }
 
-module.exports = {
-    init: init
-};
-
-module.exports.us = {
-    creditReports: creditReports
+export {
+    init,
+    creditReports
 };

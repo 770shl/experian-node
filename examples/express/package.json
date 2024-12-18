@@ -2,7 +2,7 @@
   "name": "bis_api_js_express_example",
   "version": "1.0.0",
   "description": "An example express application using the Experian API library",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "dev": "node index.js",
     "test": "mocha --timeout 5000 -R mocha-multi --reporter-options nyan=-,json=.results.json"
@@ -11,5 +11,18 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.15.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0"
+  },
+  "tsconfig": {
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    }
   }
 }

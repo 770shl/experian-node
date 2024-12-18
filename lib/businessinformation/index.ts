@@ -1,19 +1,17 @@
-'use strict';
+import * as Promise from 'bluebird';
+import * as _ from 'lodash';
+import * as request from 'request';
+import Experian from '../experian';
+import * as utils from '../utils';
 
-var Promise = require('bluebird'),
-    _ = require('lodash'),
-    request = require('request'),
-    Experian = require('../experian'),
-    utils = require('../utils');
-
-var experianInstance;
+let experianInstance: Experian;
 
 /**
  * Business API Module Init
  *
  * @param {Experian} instance Experian API Main Module
  */
-function init(instance) {
+function init(instance: Experian) {
     experianInstance = instance;
 }
 
@@ -23,7 +21,7 @@ function init(instance) {
  * @param {object} data Search Request Object
  * @returns {Promise} Request as a promise
  */
-function search(data) {
+function search(data: object): Promise<any> {
     return bisRequest('search', data);
 }
 
@@ -33,7 +31,7 @@ function search(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function headers(data) {
+function headers(data: object): Promise<any> {
     return bisRequest('headers', data);
 }
 
@@ -43,7 +41,7 @@ function headers(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function facts(data) {
+function facts(data: object): Promise<any> {
     return bisRequest('facts', data);
 }
 
@@ -53,7 +51,7 @@ function facts(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function fraudShields(data) {
+function fraudShields(data: object): Promise<any> {
     return bisRequest('fraudshields', data);
 }
 
@@ -63,7 +61,7 @@ function fraudShields(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function riskDashboards(data) {
+function riskDashboards(data: object): Promise<any> {
     return bisRequest('riskDashboards', data);
 }
 
@@ -73,7 +71,7 @@ function riskDashboards(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function bankruptcies(data) {
+function bankruptcies(data: object): Promise<any> {
     return bisRequest('bankruptcies', data);
 }
 
@@ -83,7 +81,7 @@ function bankruptcies(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function scores(data) {
+function scores(data: object): Promise<any> {
     return bisRequest('scores', data);
 }
 
@@ -93,7 +91,7 @@ function scores(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function trades(data) {
+function trades(data: object): Promise<any> {
     return bisRequest('trades', data);
 }
 
@@ -103,7 +101,7 @@ function trades(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function creditStatus(data) {
+function creditStatus(data: object): Promise<any> {
     return bisRequest('creditstatus', data);
 }
 
@@ -113,7 +111,7 @@ function creditStatus(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function corporateLinkage(data) {
+function corporateLinkage(data: object): Promise<any> {
     return bisRequest('corporatelinkage', data);
 }
 
@@ -123,7 +121,7 @@ function corporateLinkage(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function legalCollectionSummaries(data) {
+function legalCollectionSummaries(data: object): Promise<any> {
     return bisRequest('legalcollectionsummaries', data);
 }
 
@@ -133,7 +131,7 @@ function legalCollectionSummaries(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function liens(data) {
+function liens(data: object): Promise<any> {
     return bisRequest('liens', data);
 }
 
@@ -143,7 +141,7 @@ function liens(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function judgments(data) {
+function judgments(data: object): Promise<any> {
     return bisRequest('judgments', data);
 }
 
@@ -153,7 +151,7 @@ function judgments(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function collections(data) {
+function collections(data: object): Promise<any> {
     return bisRequest('collections', data);
 }
 
@@ -163,7 +161,7 @@ function collections(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function uccFilings(data) {
+function uccFilings(data: object): Promise<any> {
     return bisRequest('uccfilings', data);
 }
 
@@ -173,7 +171,7 @@ function uccFilings(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function corporateRegistrations(data) {
+function corporateRegistrations(data: object): Promise<any> {
     return bisRequest('corporateregistrations', data);
 }
 
@@ -183,7 +181,7 @@ function corporateRegistrations(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function businessContacts(data) {
+function businessContacts(data: object): Promise<any> {
     return bisRequest('businesscontacts', data);
 }
 
@@ -193,7 +191,7 @@ function businessContacts(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reverseAddresses(data) {
+function reverseAddresses(data: object): Promise<any> {
     return bisRequest('reverseaddresses', data);
 }
 
@@ -203,7 +201,7 @@ function reverseAddresses(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reversePhones(data) {
+function reversePhones(data: object): Promise<any> {
     return bisRequest('reversephones', data);
 }
 
@@ -213,7 +211,7 @@ function reversePhones(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reverseTaxIDs(data) {
+function reverseTaxIDs(data: object): Promise<any> {
     return bisRequest('reversetaxids', data);
 }
 
@@ -223,7 +221,7 @@ function reverseTaxIDs(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function scoresSearch(data) {
+function scoresSearch(data: object): Promise<any> {
     return bisRequest('scores/search', data);
 }
 
@@ -233,7 +231,7 @@ function scoresSearch(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reportsPremierProfiles(data) {
+function reportsPremierProfiles(data: object): Promise<any> {
     return bisRequest('reports/premierprofiles', data);
 }
 
@@ -243,7 +241,7 @@ function reportsPremierProfiles(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reportsPremierProfilesHtml(data) {
+function reportsPremierProfilesHtml(data: object): Promise<any> {
     return bisRequest('reports/premierprofiles/html', data);
 }
 
@@ -253,7 +251,7 @@ function reportsPremierProfilesHtml(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function aggregates(data) {
+function aggregates(data: object): Promise<any> {
     return bisRequest('aggregates', data);
 }
 
@@ -263,7 +261,7 @@ function aggregates(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function multisegments(data) {
+function multisegments(data: object): Promise<any> {
     return bisRequest('multisegments', data);
 }
 
@@ -274,18 +272,17 @@ function multisegments(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function bisRequest(url, data) {
-    var accessToken = experianInstance.getApiField('auth');
+function bisRequest(url: string, data: object): Promise<any> {
+    const accessToken = experianInstance.getApiField('auth');
 
     if (!accessToken) {
         throw new Error('User not authenticated - use the "login" method before calling an API');
     }
 
-    var basePath = experianInstance.getApiField('basePath');
-    var timeout = experianInstance.getApiField('timeout');
+    const basePath = experianInstance.getApiField('basePath');
+    const timeout = experianInstance.getApiField('timeout');
 
-    return new Promise(function(resolve, reject) {
-
+    return new Promise((resolve, reject) => {
         request({
             rejectUnauthorized: false,
             method: 'POST',
@@ -298,13 +295,12 @@ function bisRequest(url, data) {
                 'Authorization': 'Bearer ' + accessToken
             },
             body: data
-        }, function(error, response, body) {
-
+        }, (error, response, body) => {
             if (error) {
                 return reject(error);
             } else if (response.statusCode === 200) {
                 //Checks to see if the 'success' boolean in the response is true
-                var success = utils.get(body, 'success', false);
+                const success = utils.get(body, 'success', false);
                 if (success === true) {
                     //Successful response
                     return resolve(body);
@@ -319,34 +315,31 @@ function bisRequest(url, data) {
     });
 }
 
-module.exports = {
-    init: init
-};
-
-module.exports.us = {
-    search: search,
-    headers: headers,
-    facts: facts,
-    fraudShields: fraudShields,
-    riskDashboards: riskDashboards,
-    bankruptcies: bankruptcies,
-    scores: scores,
-    trades: trades,
-    creditStatus: creditStatus,
-    corporateLinkage: corporateLinkage,
-    legalCollectionSummaries: legalCollectionSummaries,
-    liens: liens,
-    judgments: judgments,
-    collections: collections,
-    uccFilings: uccFilings,
-    corporateRegistrations: corporateRegistrations,
-    businessContacts: businessContacts,
-    reverseAddresses: reverseAddresses,
-    reversePhones: reversePhones,
-    reverseTaxIDs: reverseTaxIDs,
-    scoresSearch: scoresSearch,
-    reportsPremierProfiles: reportsPremierProfiles,
-    reportsPremierProfilesHtml: reportsPremierProfilesHtml,
-    aggregates: aggregates,
-    multisegments: multisegments
+export {
+    init,
+    search,
+    headers,
+    facts,
+    fraudShields,
+    riskDashboards,
+    bankruptcies,
+    scores,
+    trades,
+    creditStatus,
+    corporateLinkage,
+    legalCollectionSummaries,
+    liens,
+    judgments,
+    collections,
+    uccFilings,
+    corporateRegistrations,
+    businessContacts,
+    reverseAddresses,
+    reversePhones,
+    reverseTaxIDs,
+    scoresSearch,
+    reportsPremierProfiles,
+    reportsPremierProfilesHtml,
+    aggregates,
+    multisegments
 };

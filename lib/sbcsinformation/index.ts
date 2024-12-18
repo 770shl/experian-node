@@ -1,19 +1,17 @@
-'use strict';
+import * as Promise from 'bluebird';
+import * as _ from 'lodash';
+import * as request from 'request';
+import { Experian } from '../experian';
+import * as utils from '../utils';
 
-var Promise = require('bluebird'),
-    _ = require('lodash'),
-    request = require('request'),
-    Experian = require('../experian'),
-    utils = require('../utils');
-
-var experianInstance;
+let experianInstance: Experian;
 
 /**
  * SBCS API Module Init
  *
  * @param {Experian} instance Experian API Main Module
  */
-function init(instance) {
+function init(instance: Experian): void {
     experianInstance = instance;
 }
 
@@ -23,7 +21,7 @@ function init(instance) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function headers(data) {
+function headers(data: object): Promise<any> {
     return bisRequest('headers', data);
 }
 
@@ -33,7 +31,7 @@ function headers(data) {
  * @param {object} data Search Request Object
  * @returns {Promise} Request as a promise
  */
-function search(data) {
+function search(data: object): Promise<any> {
     return bisRequest('search', data);
 }
 
@@ -43,7 +41,7 @@ function search(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function aggregates(data) {
+function aggregates(data: object): Promise<any> {
     return bisRequest('aggregates', data);
 }
 
@@ -53,7 +51,7 @@ function aggregates(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function reportsSbcsHtml(data) {
+function reportsSbcsHtml(data: object): Promise<any> {
     return bisRequest('reports/sbcs/html', data);
 }
 
@@ -64,16 +62,16 @@ function reportsSbcsHtml(data) {
  * @param {object} data Request Object
  * @returns {Promise} Request as a promise
  */
-function bisRequest(url, data) {
-    var accessToken = experianInstance.getApiField('auth');
+function bisRequest(url: string, data: object): Promise<any> {
+    const accessToken = experianInstance.getApiField('auth');
 
     if (!accessToken) {
         console.log("Access Token Missing");
         throw new Error('User not authenticated - use the "login" method before calling an API');
     }
 
-    var basePath = experianInstance.getApiField('basePath');
-    var timeout = experianInstance.getApiField('timeout');
+    const basePath = experianInstance.getApiField('basePath');
+    const timeout = experianInstance.getApiField('timeout');
 
     return new Promise(function(resolve, reject) {
 
@@ -95,7 +93,7 @@ function bisRequest(url, data) {
                 return reject(error);
             } else if (response.statusCode === 200) {
                 //Checks to see if the 'success' boolean in the response is true
-                var success = utils.get(body, 'success', false);
+                const success = utils.get(body, 'success', false);
                 if (success === true) {
                     //Successful response
                     return resolve(body);
@@ -110,13 +108,10 @@ function bisRequest(url, data) {
     });
 }
 
-module.exports = {
-    init: init
-};
-
-module.exports.us = {
-    search: search,
-    headers: headers,
-    aggregates: aggregates,
-    reportsSbcsHtml: reportsSbcsHtml
+export {
+    init,
+    search,
+    headers,
+    aggregates,
+    reportsSbcsHtml
 };
