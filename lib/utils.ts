@@ -1,4 +1,4 @@
-'use-strict';
+'use strict';
 
 /**
  * Gets the deep value of property specified in the ns param.
@@ -8,7 +8,7 @@
  * @param {string} key Ordered properties that are the namespace to the property of interest.
  * @param {string} defaultValue The default value that will be returned if there is no value
 */
-function get(obj, key, defaultValue) {
+function get(obj: object, key: string, defaultValue: any): any {
     return key.split('.').reduce((nestedObject, key) => {
         if (nestedObject && key in nestedObject) {
             return nestedObject[key];
